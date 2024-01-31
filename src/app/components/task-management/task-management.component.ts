@@ -130,7 +130,9 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
   public onSubmitClick(event: any) {
     this.log.log(event);
 
-    if (this._onSubmit) {
+    this.validateForm(event);
+
+    if (this._onSubmit && this.taskForm.valid) {
       this._onSubmit({
         number: this.taskId,
         description: this.taskForm.controls["taskName"].value,
@@ -141,6 +143,29 @@ export class TaskManagementComponent implements OnInit, OnDestroy {
           };
         }),
       } as Task);
+    }
+  }
+
+  private validateForm(event: any) {
+    const indexed: number[] = [];
+
+    const periodsValid = (this.taskForm.controls["periods"].value as {
+      taskStart: Date,
+      taskEnd: Date
+    }[]).map((s, index) => {
+      if (s.taskStart > s.taskEnd) {
+        indexed.push(index);
+
+        return 1;
+      }
+
+      return 0 as number;
+    }).reduce((sum, num) => sum + num, 0) <= 0;
+
+    if (!periodsValid) {
+      indexed.forEach(i => {
+        (this.taskForm.controls["periods"] as FormArray).at(i).setErrors({"nonValidDates": true})
+      });
     }
   }
 

@@ -24,7 +24,7 @@
                       <label for="dateFrom" class="font-bold block mb-2"> Date From </label>
                       <p-calendar formControlName="taskStart" iconDisplay="input" id="dateFrom" inputId="dateFrom"
                                   [showIcon]="true"
-                                  [showTime]="true" [showButtonBar]="true">
+                      >
                       </p-calendar>
                     </div>
                   </div>
@@ -34,9 +34,14 @@
                       <label for="dateTo" class="font-bold block mb-2"> Date To </label>
                       <p-calendar formControlName="taskEnd" iconDisplay="input" id="dateTo" inputId="dateTo"
                                   [showIcon]="true"
-                                  [showTime]="true" [showButtonBar]="true">
+                                  [showTime]="true" [showButtonBar]="true"
+                      >
                       </p-calendar>
                     </div>
+                  </div>
+
+                  <div *ngIf="singlePeriodForm.hasError('nonValidDates')">
+                    <p style="color: red;">Check the dates!</p>
                   </div>
 
                   <div class="col">
