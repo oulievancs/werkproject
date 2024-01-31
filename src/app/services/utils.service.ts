@@ -2,6 +2,9 @@ import {Inject, Injectable, LOCALE_ID} from "@angular/core";
 import {LoggerService} from "./logger.service";
 import {DatePipe} from "@angular/common";
 
+/**
+ * Service regarding utilities functionalities.
+ */
 @Injectable({
   providedIn: "root"
 })
@@ -23,6 +26,10 @@ export class UtilsService {
       stringArr.push(S4);
     }
     return stringArr.join("-");
+  }
+
+  public strToDate(value: string): Date {
+    return new Date(value);
   }
 
   public formatDate(date?: Date, format: string = "short"): string {

@@ -26,6 +26,9 @@ import {SplitterModule} from "primeng/splitter";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {AnimateModule} from "primeng/animate";
 import {DividerModule} from "primeng/divider";
+import {HttpClientModule} from "@angular/common/http";
+import {MessagesModule} from "primeng/messages";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -35,33 +38,36 @@ import {DividerModule} from "primeng/divider";
     WorkpackageManagementComponent,
     TaskManagementComponent
   ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        ButtonModule,
-        InputTextModule,
-        CardModule,
-        TreeModule,
-        ToolbarModule,
-        ToastModule,
-        ConfirmDialogModule,
-        DynamicDialogModule,
-        TreeTableModule,
-        MultiSelectModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        CalendarModule,
-        RippleModule,
-        SplitterModule,
-        ConfirmPopupModule,
-        AnimateModule,
-        DividerModule
-    ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputTextModule,
+    CardModule,
+    TreeModule,
+    ToolbarModule,
+    ToastModule,
+    ConfirmDialogModule,
+    DynamicDialogModule,
+    TreeTableModule,
+    MultiSelectModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    CalendarModule,
+    RippleModule,
+    SplitterModule,
+    ConfirmPopupModule,
+    AnimateModule,
+    DividerModule,
+    HttpClientModule,
+  ],
   providers: [
     provideClientHydration(),
     DatePipe,
+    ConfirmationService,
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,16 @@
         <small id="workplanName-help">Enter the workplan Name (required).</small>
       </div>
 
-      <button pButton type="submit" label="Submit" [disabled]="form.invalid"></button>
+      <div>
+        <button pButton type="submit" label="Submit" [disabled]="form.invalid"></button>
+
+        <br>
+        <br>
+
+        <button pButton type="button" label="Get from BE" [disabled]="form.invalid"
+                (click)="onSerchBE($event)"></button>
+      </div>
+
     </form>
   </p-card>
 </div>

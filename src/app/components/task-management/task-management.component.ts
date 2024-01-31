@@ -10,6 +10,10 @@ import {UtilsService} from "../../services/utils.service";
 import {Subscription} from "rxjs";
 import {WorkplanManagementService} from "../../services/workplan-management.service";
 
+/**
+ * Component regarding the management of a task. Description
+ * and period are configures via this view.
+ */
 @Component({
   selector: "app-task-management",
   templateUrl: "./task-management.component.html",

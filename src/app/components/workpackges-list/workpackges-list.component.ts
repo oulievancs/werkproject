@@ -8,7 +8,12 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService, TreeNode} from "primeng/api";
 import {Column} from "../../models/Column";
 import {GlobalObjectService} from "../../services/global-object.service";
+import {BackendService} from "../../services/backend-service";
 
+/**
+ * Component regarding the management of the main list of workpackages and tasks,
+ * regarding one workplan.
+ */
 @Component({
   selector: "app-workpackges-list",
   templateUrl: "./workpackges-list.component.html",
@@ -36,7 +41,8 @@ export class WorkpackgesListComponent implements OnInit {
   constructor(private workplanManagement: WorkplanManagementService,
               private route: ActivatedRoute,
               private log: LoggerService,
-              private go: GlobalObjectService) {
+              private go: GlobalObjectService,
+              private backendService: BackendService) {
   }
 
   ngOnInit() {
@@ -135,6 +141,22 @@ export class WorkpackgesListComponent implements OnInit {
     this.log.log(event);
 
     this.onEditWorkpackage(event, {workpackage: 0});
+  }
+
+  public onSaveClick(event: any) {
+    this.log.log("The whole workplan is about to be sent to backend.", this.workplan);
+
+    // Send to backend via Backend service.
+    if (this.workplan) {
+      this.backendService.sendWorkplan(this.workplan).subscribe({
+        next: (response) => {
+          this.log.log("The response was = ", response);
+        },
+        error: (error) => {
+          this.log.error("The error from the server was = ", error);
+        }
+      });
+    }
   }
 
   public onEditTask(ev: any, params: any) {
