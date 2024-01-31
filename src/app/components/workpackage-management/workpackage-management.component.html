@@ -1,0 +1,20 @@
+<div class="card">
+
+  <form [formGroup]="workpackageForm">
+    <div class="grid">
+      <div class="col">
+        <div class="flex-auto">
+          <label for="workpackageName" class="font-bold block mb-2"> Workpackage Name </label>
+          <input pInputText formControlName="workpackageName" iconDisplay="input" inputId="workpackageName"
+                 id="workpackageName" aria-describedby="workpackageName-help"/>
+          <small id="workpackageName-help">Enter the workpackage Name (required).</small>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button pButton pRipple type="button" label="Submit" class="p-button-success" [disabled]="!workpackageForm.valid"
+              (click)="onSubmitClick($event)"></button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,78 @@
+<form [formGroup]="taskForm">
+  <div class="m-0">
+    <p-card header="Task Name">
+      <input pInputText type="text" formControlName="taskName">
+    </p-card>
+
+    <p-divider align="center" type="dashed">
+      <b>Time Settings</b>
+    </p-divider>
+
+
+    <p-card header="Task Periods" subheader="Enter the individual period.">
+
+      <ng-container formArrayName="periods">
+
+        <div class="grid">
+          <ng-container *ngFor="let singlePeriodForm of periodsFormGroups; let i = index">
+
+            <p-card>
+              <div class="card flex flex-wrap gap-3 p-fluid">
+                <div class="lesson-form-row" [formGroup]="singlePeriodForm">
+                  <div class="col grid-nogutter">
+                    <div class="flex-auto">
+                      <label for="dateFrom" class="font-bold block mb-2"> Date From </label>
+                      <p-calendar formControlName="taskStart" iconDisplay="input" id="dateFrom" inputId="dateFrom"
+                                  [showIcon]="true"
+                                  [showTime]="true" [showButtonBar]="true">
+                      </p-calendar>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="flex-auto">
+                      <label for="dateTo" class="font-bold block mb-2"> Date To </label>
+                      <p-calendar formControlName="taskEnd" iconDisplay="input" id="dateTo" inputId="dateTo"
+                                  [showIcon]="true"
+                                  [showTime]="true" [showButtonBar]="true">
+                      </p-calendar>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="flex-auto">
+                      <p-button [style]="{'bottom': '0px'}" icon="pi pi-trash" class="p-button-danger" [rounded]="true"
+                                [text]="true" [raised]="true"
+                                (click)="onRemoveClick($event, i)" severity="danger"></p-button>
+                    </div>
+
+                    <p-toast></p-toast>
+                    <p-confirmPopup></p-confirmPopup>
+                  </div>
+                </div>
+              </div>
+            </p-card>
+
+          </ng-container>
+        </div>
+
+        <p-divider align="left" type="dotted"></p-divider>
+
+
+        <div>
+          <p-button icon="pi pi-plus" [rounded]="true" [text]="true" [raised]="true"
+                    (onClick)="onAddPeriod($event)"></p-button>
+        </div>
+      </ng-container>
+    </p-card>
+
+
+    <p-divider align="center" type="dashed">
+    </p-divider>
+
+    <div>
+      <button pButton pRipple type="button" label="Submit" class="p-button-success" [disabled]="!taskForm.valid"
+              (click)="onSubmitClick($event)"></button>
+    </div>
+  </div>
+</form>
