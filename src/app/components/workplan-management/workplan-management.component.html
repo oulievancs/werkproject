@@ -1,0 +1,15 @@
+<h3>Workplan Management</h3>
+
+<div>
+  <p-card styleClass="user-form" class="flex justify-content-center">
+    <form [formGroup]="form" (ngSubmit)="submit($event)">
+      <div class="flex flex-column gap-2">
+        <label for="workplanName">Workplan Name</label>
+        <input pInputText id="workplanName" aria-describedby="workplanName-help" formControlName="workplanName">
+        <small id="workplanName-help">Enter the workplan Name (required).</small>
+      </div>
+
+      <button pButton type="submit" label="Submit" [disabled]="form.invalid"></button>
+    </form>
+  </p-card>
+</div>

@@ -1,0 +1,102 @@
+<p-toolbar styleClass="bg-gray-900 shadow-2"
+           [style]="{ 'border-radius': '3rem', 'background-image': 'var(--bluegray-100)' }"
+>
+  <ng-template pTemplate="start">
+    <h3 [style]="{'color': '#fff'}">Workpackages List - [{{ workplan?.title }}]</h3>
+  </ng-template>
+
+  <ng-template pTemplate="center">
+    <div class="flex flex-wrap align-items-center gap-3">
+      <p-button icon="pi pi-plus" [rounded]="true" [raised]="true" (onClick)="onAddClick($event)">
+
+      </p-button>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+  </ng-template>
+</p-toolbar>
+
+<div class="card">
+  <p-treeTable
+    [value]="files"
+    [scrollable]="true"
+    [tableStyle]="{'min-width': '50rem'}"
+    selectionMode="single"
+    (onNodeSelect)="onNodeSelect($event)"
+    (onNodeUnselect)="nodeUnselect($event)"
+    [columns]="selectedColumns"
+    (onNodeExpand)="expandWorkTask($event)"
+    (onNodeCollapse)="collapseNode($event)"
+  >
+    <ng-template pTemplate="caption">
+      <div style="text-align: left">
+        <p-multiSelect
+          [options]="cols"
+          [(ngModel)]="selectedColumns"
+          optionLabel="header"
+          selectedItemsLabel="{0} columns selected"
+          [style]="{ width: '20em' }"
+          defaultLabel="Choose Columns"
+          display="chip"
+        ></p-multiSelect>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr [ttRow]="rowNode">
+        <td *ngFor="let col of columns; let i = index; let last = last;"
+            [style]="rowNode?.node?.leaf ? {'font-weight': 'normal'} : {'font-weight': 'bold'}">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+
+
+          <ng-container *ngIf="i === 0 && !rowNode?.node?.leaf">
+            <p-button size="small" icon="pi pi-pencil" [rounded]="true" [raised]="true" severity="secondary"
+                      [style]="{ 'margin-right': '.5em' }"
+                      (onClick)="onEditWorkpackage($event, rowNode?.node?.data)"
+            ></p-button>
+
+            <p-button size="small" icon="pi pi-trash" class="p-button-danger" [rounded]="true" [text]="true"
+                      [raised]="true"
+                      (click)="onRemoveWorkpackage($event, rowNode?.node?.data)" severity="danger"
+            ></p-button>
+
+            <p-button size="small" icon="pi pi-plus" [rounded]="true" [raised]="true"
+                      (onClick)="onAddTaskClick($event, rowNode?.node?.data)">
+
+            </p-button>
+
+            <p-toast></p-toast>
+            <p-confirmPopup></p-confirmPopup>
+          </ng-container>
+
+          <ng-container *ngIf="i === 0 && rowNode?.node?.leaf">
+            <p-button size="small" icon="pi pi-pencil" [rounded]="true" [raised]="true" severity="secondary"
+                      [style]="{ 'margin-right': '.5em' }"
+                      (onClick)="onEditTask($event, rowNode?.node?.data)"
+            ></p-button>
+
+            <p-button size="small" icon="pi pi-trash" class="p-button-danger" [rounded]="true" [text]="true"
+                      [raised]="true"
+                      (click)="onRemoveTask($event, rowNode?.node?.data)" severity="danger"
+            ></p-button>
+
+            <p-toast></p-toast>
+            <p-confirmPopup></p-confirmPopup>
+          </ng-container>
+
+          {{ rowNode?.node?.data[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+
+</div>
