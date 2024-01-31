@@ -6,6 +6,9 @@ import {UtilsService} from "./utils.service";
 import {LoggerService} from "./logger.service";
 import {Task} from "../models/Task";
 
+/**
+ * Service regarding global object management, and the local storage of created objects.
+ */
 @Injectable({
   providedIn: "root"
 })
@@ -98,10 +101,18 @@ export class GlobalObjectService {
     }) || []);
   }
 
-  private getDatetimeWorkpackage(fn: (datetimes: number[]) => number, getter: (p: Period) => Date, tasks?: Task[],): number {
+  private getDatetimeWorkpackage(fn: (datetimes: number[]) => number, getter: (p: Period) => Date | string, tasks?: Task[],): number {
     return fn(tasks?.flatMap(t => {
       return (t.periods || []).map(p => {
-        const dt: Date = getter(p);
+        const dateOrString = getter(p);
+
+        let dt: Date;
+
+        if (typeof dateOrString === "string") {
+          dt = this.utils.strToDate(dateOrString as string);
+        } else {
+          dt = dateOrString as Date;
+        }
         return dt ? dt.getTime() : 0;
       });
     }) || []);

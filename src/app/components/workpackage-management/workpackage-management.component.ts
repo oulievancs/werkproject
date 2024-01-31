@@ -6,6 +6,9 @@ import {GlobalObjectService} from "../../services/global-object.service";
 import {Workpackage} from "../../models/Workpackage";
 import {Workplan} from "../../models/Workplan";
 
+/**
+ * Component regarding the management of a workpackage. Only, description is managed.
+ */
 @Component({
   selector: "app-workpackage-management",
   templateUrl: "./workpackage-management.component.html",
