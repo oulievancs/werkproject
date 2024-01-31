@@ -32,7 +32,7 @@ fetched, on the first page, by giving the uuid of *workplan*.
 Moreover, more information about the backend you can visit
 the repository [Repo](https://github.com/oulievancs/social-albums/blob/main/api/workProjectBackend.py).
 
-
+Finally, as storage *session storage* is used.
 
 ## Development server
 
