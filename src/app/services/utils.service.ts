@@ -33,6 +33,12 @@ export class UtilsService {
   }
 
   public formatDate(date?: Date, format: string = "short"): string {
-    return (date ? this._datePipe.transform(date, format) : undefined) || "N/A";
+    try {
+      return (date ? this._datePipe.transform(date, format) : undefined) || "N/A";
+    } catch (e) {
+      this.log.error("The date is invalid. Date given = ", date);
+
+      return "N/A";
+    }
   }
 }
